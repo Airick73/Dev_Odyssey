@@ -22,19 +22,34 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.greenAccent,
       ),
       body: Center(
-        child: Text("Home page"),
+        child: const Text("Home page"),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: const [
+      bottomNavigationBar: BottomNavigationBar(items: [
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.userFriends),
+          icon: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/friends');
+            },
+            icon: const Icon(FontAwesomeIcons.userFriends),
+          ),
           label: 'Friends',
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.ship),
+          icon: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/odyssey');
+            },
+            icon: const Icon(FontAwesomeIcons.ship),
+          ),
           label: 'Odyssey',
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.map),
+          icon: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/explore');
+            },
+            icon: const Icon(FontAwesomeIcons.map),
+          ),
           label: 'Explore',
         )
       ]),
