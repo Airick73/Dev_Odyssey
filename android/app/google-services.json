@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "9408683174",
+    "project_id": "dev-odyssey-109b2",
+    "storage_bucket": "dev-odyssey-109b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9408683174:android:c15a7dfec6b92d431da867",
+        "android_client_info": {
+          "package_name": "io.terracorp.dev_odyssey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9408683174-r25bn567tld0p65engs7e62d59248l37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUmXxnutUXm47mVeQQe8WgwWb1dodzTb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9408683174-r25bn567tld0p65engs7e62d59248l37.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "9408683174-2tgg8giojb736qi2sa2rnf90rsj7bjkb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.terracorp.devOdyssey"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9408683174:android:8f0af0c1fada0b441da867",
+        "android_client_info": {
+          "package_name": "io.terracorp.devodyssey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9408683174-9arbvp8r1gvmi9gtpvrnt3j8omj5htfe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.terracorp.devodyssey",
+            "certificate_hash": "e6b68cfc630088dff288a09d15b5bfed4ea6840b"
+          }
+        },
+        {
+          "client_id": "9408683174-r25bn567tld0p65engs7e62d59248l37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUmXxnutUXm47mVeQQe8WgwWb1dodzTb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9408683174-r25bn567tld0p65engs7e62d59248l37.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "9408683174-2tgg8giojb736qi2sa2rnf90rsj7bjkb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.terracorp.devOdyssey"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
