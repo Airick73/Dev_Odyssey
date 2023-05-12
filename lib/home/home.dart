@@ -1,7 +1,6 @@
 import 'package:dev_odyssey/login/login.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:math';
 import 'package:dev_odyssey/shared/shared.dart';
 import 'package:dev_odyssey/services/auth.dart';
 

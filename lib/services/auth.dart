@@ -1,6 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -17,7 +15,8 @@ class AuthService {
       }
 
       // Log error message
-      print('Error signing in anonymously: ${e.message}');
+      // ignore: avoid_print
+      print('Error signing in anonymously: $errorMessage');
     }
   }
 
@@ -36,9 +35,9 @@ class AuthService {
       );
 
       await FirebaseAuth.instance.signInWithCredential(authCrendential);
-      
     } on FirebaseAuthException catch (e) {
-      //error
+      // ignore: avoid_print
+      print(e.message);
     }
   }
 }
