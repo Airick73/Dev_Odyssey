@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBS2Il0C6mnXsyq2AfcW6UOKqKm7-gk_3g',
-    appId: '1:9408683174:web:379b087ec43d6a8b1da867',
-    messagingSenderId: '9408683174',
-    projectId: 'dev-odyssey-109b2',
-    authDomain: 'dev-odyssey-109b2.firebaseapp.com',
-    storageBucket: 'dev-odyssey-109b2.appspot.com',
-    measurementId: 'G-N9WE8RWYWJ',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDUmXxnutUXm47mVeQQe8WgwWb1dodzTb0',
-    appId: '1:9408683174:android:c15a7dfec6b92d431da867',
+    appId: '1:9408683174:android:d0f11e339b08815e1da867',
     messagingSenderId: '9408683174',
     projectId: 'dev-odyssey-109b2',
     storageBucket: 'dev-odyssey-109b2.appspot.com',
@@ -63,20 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBvqm8xBMWFum_KIZzeROfIDRDMQgA4VN0',
-    appId: '1:9408683174:ios:c8eb776cdb6836c41da867',
+    appId: '1:9408683174:ios:fb132d041206f4d31da867',
     messagingSenderId: '9408683174',
     projectId: 'dev-odyssey-109b2',
     storageBucket: 'dev-odyssey-109b2.appspot.com',
-    iosClientId: '9408683174-2tgg8giojb736qi2sa2rnf90rsj7bjkb.apps.googleusercontent.com',
-    iosBundleId: 'io.terracorp.devOdyssey',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBvqm8xBMWFum_KIZzeROfIDRDMQgA4VN0',
-    appId: '1:9408683174:ios:c8eb776cdb6836c41da867',
-    messagingSenderId: '9408683174',
-    projectId: 'dev-odyssey-109b2',
-    storageBucket: 'dev-odyssey-109b2.appspot.com',
+    androidClientId: '9408683174-9arbvp8r1gvmi9gtpvrnt3j8omj5htfe.apps.googleusercontent.com',
     iosClientId: '9408683174-2tgg8giojb736qi2sa2rnf90rsj7bjkb.apps.googleusercontent.com',
     iosBundleId: 'io.terracorp.devOdyssey',
   );
