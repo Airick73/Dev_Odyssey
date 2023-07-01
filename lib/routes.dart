@@ -4,6 +4,8 @@ import 'package:dev_odyssey/friends/friends.dart';
 import 'package:dev_odyssey/home/home.dart';
 import 'package:dev_odyssey/login/login.dart';
 import 'package:dev_odyssey/odyssey/odyssey.dart';
+import 'package:dev_odyssey/odyssey/people.dart';
+import 'package:dev_odyssey/odyssey/resources.dart';
 import 'package:dev_odyssey/profile/profile.dart';
 
 var appRoutes = {
@@ -14,4 +16,6 @@ var appRoutes = {
   '/odyssey': (context) => const OdysseyScreen(),
   '/profile': (context) => const ProfileScreen(),
   '/friends': (context) => const FriendsScreen(),
+  '/resources': (context) => const ResourcesScreen(),
+  '/people': (context) => const PeopleScreen(),
 };

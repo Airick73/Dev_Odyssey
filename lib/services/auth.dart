@@ -13,7 +13,6 @@ class AuthService {
       if (e.code == 'ERROR_NETWORK_REQUEST_FAILED') {
         errorMessage = 'No internet connection. Please check your connection.';
       }
-
       // Log error message
       // ignore: avoid_print
       print('Error signing in anonymously: $errorMessage');
@@ -33,7 +32,6 @@ class AuthService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-
       await FirebaseAuth.instance.signInWithCredential(authCrendential);
     } on FirebaseAuthException catch (e) {
       // ignore: avoid_print

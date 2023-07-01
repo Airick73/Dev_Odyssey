@@ -29,7 +29,13 @@ class HomeScreen extends StatelessWidget {
             body: const Center(
               child: Text("Home page"),
             ),
-            bottomNavigationBar: const BottomNavBar(),
+            bottomNavigationBar: const BottomNavBar(
+                left: "friends",
+                middle: "odyssey",
+                right: "explore",
+                leftIcon: FontAwesomeIcons.userFriends,
+                middleIcon: FontAwesomeIcons.ship,
+                rightIcon: FontAwesomeIcons.map),
             drawer: Drawer(
               backgroundColor: Colors.redAccent,
               child: IconButton(
@@ -38,7 +44,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           );
-          ;
         } else {
           return const LoginScreen();
         }

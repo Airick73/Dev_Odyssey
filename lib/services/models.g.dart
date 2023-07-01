@@ -6,14 +6,16 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) => User(
-      userId: json['userId'] as String? ?? '',
+DevOdysseyUser _$DevOdysseyUserFromJson(Map<String, dynamic> json) =>
+    DevOdysseyUser(
+      uid: json['uid'] as String,
+      email: json['email'] as String,
       displayName: json['displayName'] as String? ?? '',
+      photoURL: json['photoURL'] as String? ?? '',
       friends: (json['friends'] as List<dynamic>?)
-              ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => DevOdysseyUser.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      profilePicture: json['profilePicture'] as String? ?? '',
       bio: json['bio'] as String? ?? '',
       age: json['age'] as int? ?? 0,
       odysseys: (json['odysseys'] as List<dynamic>?)
@@ -22,11 +24,13 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           const [],
     );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'userId': instance.userId,
+Map<String, dynamic> _$DevOdysseyUserToJson(DevOdysseyUser instance) =>
+    <String, dynamic>{
+      'uid': instance.uid,
+      'email': instance.email,
       'displayName': instance.displayName,
+      'photoURL': instance.photoURL,
       'friends': instance.friends,
-      'profilePicture': instance.profilePicture,
       'bio': instance.bio,
       'age': instance.age,
       'odysseys': instance.odysseys,

@@ -2,27 +2,32 @@ import 'package:json_annotation/json_annotation.dart';
 part 'models.g.dart';
 
 @JsonSerializable()
-class User {
-  String userId;
-  String displayName;
-  List<User> friends;
-  String profilePicture;
+class DevOdysseyUser {
+  //from firebase auth user
+  final String uid;
+  final String? email;
+  final String? displayName;
+  final String? photoURL;
+  //custom properties
+  List<DevOdysseyUser> friends;
   String bio;
   int age;
   List<Odyssey> odysseys;
 
-  User({
-    this.userId = '',
+  DevOdysseyUser({
+    required this.uid,
+    this.email,
     this.displayName = '',
+    this.photoURL = '',
     this.friends = const [],
-    this.profilePicture = '',
     this.bio = '',
     this.age = 0,
     this.odysseys = const [],
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  factory DevOdysseyUser.fromJson(Map<String, dynamic> json) =>
+      _$DevOdysseyUserFromJson(json);
+  Map<String, dynamic> toJson() => _$DevOdysseyUserToJson(this);
 }
 
 @JsonSerializable()

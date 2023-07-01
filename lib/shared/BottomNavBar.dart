@@ -2,7 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({super.key});
+  final String left;
+  final String middle;
+  final String right;
+  final IconData leftIcon;
+  final IconData middleIcon;
+  final IconData rightIcon;
+
+  const BottomNavBar(
+      {super.key,
+      required this.left,
+      required this.middle,
+      required this.right,
+      required this.leftIcon,
+      required this.middleIcon,
+      required this.rightIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -10,29 +24,29 @@ class BottomNavBar extends StatelessWidget {
       BottomNavigationBarItem(
         icon: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/friends');
+            Navigator.pushNamed(context, '/$left');
           },
-          icon: const Icon(FontAwesomeIcons.userFriends),
+          icon: Icon(leftIcon),
         ),
-        label: 'Friends',
+        label: left,
       ),
       BottomNavigationBarItem(
         icon: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/odyssey');
+            Navigator.pushNamed(context, '/$middle');
           },
-          icon: const Icon(FontAwesomeIcons.ship),
+          icon: Icon(middleIcon),
         ),
-        label: 'Odyssey',
+        label: middle,
       ),
       BottomNavigationBarItem(
         icon: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/explore');
+            Navigator.pushNamed(context, '/$right');
           },
-          icon: const Icon(FontAwesomeIcons.map),
+          icon: Icon(rightIcon),
         ),
-        label: 'Explore',
+        label: right,
       )
     ]);
   }
