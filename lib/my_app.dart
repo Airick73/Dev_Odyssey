@@ -42,17 +42,15 @@ class MyApp extends StatelessWidget {
                   : ThemeMode.light,
               home: Consumer<AuthProvider>(
                 builder: (_, authProviderRef, __) {
-                  if (userSnapshot.connectionState == ConnectionState.active) {
-                    if (userSnapshot.hasData &&
-                        userSnapshot.data!.uid != 'null') {
-                      return const HomeScreen();
-                    } else {
-                      return const LoginScreen();
-                    }
+                  if (authProviderRef.status == Status.Authenticated) {
+                    return const HomeScreen();
+                  } else if (authProviderRef.status == Status.Unauthenticated) {
+                    return const LoginScreen();
+                  } else {
+                    return const Material(
+                      child: LoadingScreen(),
+                    );
                   }
-                  return const Material(
-                    child: LoadingScreen(),
-                  );
                 },
               ),
             );

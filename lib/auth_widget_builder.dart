@@ -44,7 +44,6 @@ class AuthWidgetBuilder extends StatelessWidget {
             child: builder(context, snapshot),
           );
         }
-        print("ERROR: USER DATA IS NULL IN AUTH WIDGET BUILDER");
         return builder(context, snapshot);
       },
     );
