@@ -2,7 +2,7 @@ import 'package:dev_odyssey/providers/auth_provider.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:dev_odyssey/routes.dart';
 import '../widgets/BottomNavBar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,8 +18,12 @@ class HomeScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.greenAccent,
       ),
-      body: const Center(
-        child: Text("Home page."),
+      body: Center(
+        child: ElevatedButton(
+            onPressed: () {
+              print("${authProvider.status}");
+            },
+            child: const Text("status")),
       ),
       bottomNavigationBar: const BottomNavBar(
           left: "friends",
@@ -32,7 +36,10 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.redAccent,
         child: IconButton(
           icon: const Icon(FontAwesomeIcons.signOutAlt),
-          onPressed: () => authProvider.signOut(),
+          onPressed: () {
+            authProvider.signOut();
+            Navigator.of(context).pushReplacementNamed(Routes.login);
+          },
         ),
       ),
     );
