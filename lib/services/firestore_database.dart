@@ -19,40 +19,43 @@ changed to true.
 
  */
 class FirestoreDatabase {
-  FirestoreDatabase({required this.uid});
+  FirestoreDatabase({required this.uid}) {
+    print('FirestoreDatabase uid: $uid'); // Add this line
+  }
   final String uid;
 
   final _firestoreService = FirestoreService.instance;
 
   //Method to create/update OdysseyModel
-  Future<void> setOdyssey(OdysseyModel odyssey) async =>
-      await _firestoreService.set(
-        path: FirestorePath.odyssey(uid, odyssey.id),
-        data: odyssey.toMap(),
-      );
-
-  //Method to delete OdysseyModel entry
-  Future<void> deleteOdyssey(OdysseyModel odyssey) async {
-    await _firestoreService.deleteData(
-        path: FirestorePath.odyssey(uid, odyssey.id));
+  Future<void> setOdyssey(OdysseyModel odyssey) async {
+    print('setOdyssey uid: $uid'); // Add this line
+    await _firestoreService.set(
+      path: FirestorePath.odyssey(uid, odyssey.id),
+      data: odyssey.toMap(),
+    );
   }
 
   //Method to retrieve OdysseyModel object based on the given odysseyId
-  Stream<OdysseyModel> odysseyStream({required String odysseyId}) =>
-      _firestoreService.documentStream(
-        path: FirestorePath.odyssey(uid, odysseyId),
-        builder: (data, documentId) => OdysseyModel.fromMap(data, documentId),
-      );
+  Stream<OdysseyModel> odysseyStream({required String odysseyId}) {
+    print('odysseyStream uid: $uid'); // Add this line
+    return _firestoreService.documentStream(
+      path: FirestorePath.odyssey(uid, odysseyId),
+      builder: (data, documentId) => OdysseyModel.fromMap(data, documentId),
+    );
+  }
 
   //Method to retrieve all odysseys item from the same user based on uid
-  Stream<List<OdysseyModel>> odysseysStream() =>
-      _firestoreService.collectionStream(
-        path: FirestorePath.odysseys(uid),
-        builder: (data, documentId) => OdysseyModel.fromMap(data, documentId),
-      );
+  Stream<List<OdysseyModel>> odysseysStream() {
+    print('odysseysStream uid: $uid'); // Add this line
+    return _firestoreService.collectionStream(
+      path: FirestorePath.odysseys(uid),
+      builder: (data, documentId) => OdysseyModel.fromMap(data, documentId),
+    );
+  }
 
   //Method to mark all OdysseyModel to be complete
   Future<void> setAllodysseyComplete() async {
+    print('setAllodysseyComplete uid: $uid'); // Add this line
     final batchUpdate = FirebaseFirestore.instance.batch();
 
     final querySnapshot = await FirebaseFirestore.instance
@@ -66,6 +69,7 @@ class FirestoreDatabase {
   }
 
   Future<void> deleteAllOdysseyWithComplete() async {
+    print('deleteAllOdysseyWithComplete uid: $uid'); // Add this line
     final batchDelete = FirebaseFirestore.instance.batch();
 
     final querySnapshot = await FirebaseFirestore.instance

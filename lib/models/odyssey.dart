@@ -22,9 +22,18 @@ class OdysseyModel {
   factory OdysseyModel.fromMap(Map<String, dynamic> data, String documentId) {
     String name = data['name'];
     String details = data['details'];
-    Map<String, PersonModel> people = data['people'];
-    Map<String, EntryModel> entries = data['entries'];
-    Map<String, ResourceModel> resources = data['resources'];
+
+    Map<String, dynamic> peopleData = data['people'] ?? {};
+    Map<String, PersonModel> people = peopleData
+        .map((key, value) => MapEntry(key, PersonModel.fromMap(value, key)));
+
+    Map<String, dynamic> entriesData = data['entries'] ?? {};
+    Map<String, EntryModel> entries = entriesData
+        .map((key, value) => MapEntry(key, EntryModel.fromMap(value, key)));
+
+    Map<String, dynamic> resourcesData = data['resources'] ?? {};
+    Map<String, ResourceModel> resources = resourcesData
+        .map((key, value) => MapEntry(key, ResourceModel.fromMap(value, key)));
 
     return OdysseyModel(
         id: documentId,

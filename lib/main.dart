@@ -2,6 +2,7 @@ import 'package:dev_odyssey/my_app.dart';
 import 'package:dev_odyssey/providers/auth_provider.dart';
 import 'package:dev_odyssey/providers/theme_provider.dart';
 import 'package:dev_odyssey/services/firestore_database.dart';
+import 'package:dev_odyssey/widgets/restart_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,9 +27,11 @@ void main() async {
             create: (context) => AuthProvider(),
           ),
         ],
-        child: MyApp(
-          databaseBuilder: (_, uid) => FirestoreDatabase(uid: uid),
-          key: const Key('MyApp'),
+        child: RestartWidget(
+          child: MyApp(
+            databaseBuilder: (_, uid) => FirestoreDatabase(uid: uid),
+            key: const Key('MyApp'),
+          ),
         ),
       ),
     );

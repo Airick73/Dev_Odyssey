@@ -40,8 +40,13 @@ class OdysseyScreen extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final odysseys = snapshot.data;
+                  if (odysseys!.isEmpty) {
+                    print("No odysseys found");
+                  } else {
+                    print("# of odysseys: ${odysseys.length}");
+                  }
                   return ListView.builder(
-                    itemCount: odysseys!.length,
+                    itemCount: odysseys.length,
                     itemBuilder: (context, index) {
                       final odyssey = odysseys[index];
                       return ListTile(
@@ -51,7 +56,10 @@ class OdysseyScreen extends StatelessWidget {
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return const Center(child: Text('Something went wrong!'));
+                  print('Snapshot error: ${snapshot.error}');
+                  return const Center(
+                      child:
+                          Text('Snapshot has error. Cannot display Odysseys'));
                 }
                 // While data is loading
                 return const Center(child: CircularProgressIndicator());

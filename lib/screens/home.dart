@@ -1,9 +1,10 @@
 import 'package:dev_odyssey/providers/auth_provider.dart';
+import 'package:dev_odyssey/routes.dart';
+import 'package:dev_odyssey/widgets/BottomNavBar.dart';
+import 'package:dev_odyssey/widgets/restart_app.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:dev_odyssey/routes.dart';
-import '../widgets/BottomNavBar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,6 +40,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             authProvider.signOut();
             Navigator.of(context).pushReplacementNamed(Routes.login);
+            RestartWidget.restartApp(context);
           },
         ),
       ),

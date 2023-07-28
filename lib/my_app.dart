@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
                     }
                   }
                   return const Material(
-                    child: LoadingScreen(),
+                    child: CircularProgressIndicator(),
                   );
                 },
               ),
