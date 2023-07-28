@@ -1,21 +1,39 @@
-import 'package:dev_odyssey/about/about.dart';
-import 'package:dev_odyssey/explore/explore.dart';
-import 'package:dev_odyssey/friends/friends.dart';
-import 'package:dev_odyssey/home/home.dart';
-import 'package:dev_odyssey/login/login.dart';
-import 'package:dev_odyssey/odyssey/odyssey.dart';
-import 'package:dev_odyssey/odyssey/people.dart';
-import 'package:dev_odyssey/odyssey/resources.dart';
-import 'package:dev_odyssey/profile/profile.dart';
+import 'package:dev_odyssey/screens/about.dart';
+import 'package:dev_odyssey/screens/explore.dart';
+import 'package:dev_odyssey/screens/friends.dart';
+import 'package:dev_odyssey/screens/home.dart';
+import 'package:dev_odyssey/screens/login.dart';
+import 'package:dev_odyssey/screens/odyssey/odyssey.dart';
+import 'package:dev_odyssey/screens/odyssey/people.dart';
+import 'package:dev_odyssey/screens/odyssey/resources.dart';
+import 'package:dev_odyssey/screens/profile.dart';
+import 'package:dev_odyssey/screens/register.dart';
+import 'package:flutter/material.dart';
 
-var appRoutes = {
-  '/': (context) => const HomeScreen(),
-  '/about': (context) => const AboutScreen(),
-  '/login': (context) => const LoginScreen(),
-  '/explore': (context) => const ExploreScreen(),
-  '/odyssey': (context) => const OdysseyScreen(),
-  '/profile': (context) => const ProfileScreen(),
-  '/friends': (context) => const FriendsScreen(),
-  '/resources': (context) => const ResourcesScreen(),
-  '/people': (context) => const PeopleScreen(),
-};
+class Routes {
+  Routes._();
+
+  static const String home = '/home';
+  static const String about = '/about';
+  static const String login = '/login';
+  static const String explore = '/explore';
+  static const String odyssey = '/odyssey';
+  static const String profile = '/profile';
+  static const String friends = '/friends';
+  static const String resources = '/resources';
+  static const String people = '/people';
+  static const String register = '/register';
+
+  static final routes = <String, WidgetBuilder>{
+    home: (BuildContext context) => const HomeScreen(),
+    about: (BuildContext context) => const AboutScreen(),
+    login: (BuildContext context) => const LoginScreen(),
+    explore: (BuildContext context) => const ExploreScreen(),
+    odyssey: (BuildContext context) => const OdysseyScreen(),
+    profile: (BuildContext context) => const ProfileScreen(),
+    friends: (BuildContext context) => const FriendsScreen(),
+    resources: (BuildContext context) => const ResourcesScreen(),
+    people: (BuildContext context) => const PeopleScreen(),
+    register: (BuildContext context) => const RegisterScreen(),
+  };
+}
