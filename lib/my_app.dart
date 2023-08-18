@@ -1,7 +1,7 @@
 import 'package:dev_odyssey/auth_widget_builder.dart';
+import 'package:dev_odyssey/models/user_model.dart';
 import 'package:dev_odyssey/providers/theme_provider.dart';
 import 'package:dev_odyssey/routes.dart';
-import 'package:dev_odyssey/screens/loading.dart';
 import 'package:dev_odyssey/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:dev_odyssey/providers/auth_provider.dart';
@@ -9,8 +9,6 @@ import 'package:dev_odyssey/services/firestore_database.dart';
 import 'package:dev_odyssey/screens/login.dart';
 import 'package:dev_odyssey/screens/home.dart';
 import 'package:provider/provider.dart';
-
-import 'models/user.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({required Key key, required this.databaseBuilder})

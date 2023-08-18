@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dev_odyssey/models/user.dart';
+import 'package:dev_odyssey/models/user_model.dart';
 import 'package:dev_odyssey/providers/auth_provider.dart';
 import 'package:dev_odyssey/services/firestore_database.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,6 @@ class AuthWidgetBuilder extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
         final UserModel? user = snapshot.data;
         if (user != null) {
-          print("User id from auth widget builder: ${user.uid}");
           /*
           * For any other Provider services that rely on user data can be
           * added to the following MultiProvider list.
