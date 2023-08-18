@@ -2,7 +2,7 @@ import 'package:dev_odyssey/providers/auth_provider.dart';
 import 'package:dev_odyssey/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dev_odyssey/models/user.dart';
+import 'package:dev_odyssey/models/user_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
