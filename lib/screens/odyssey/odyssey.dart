@@ -1,166 +1,108 @@
-import 'package:dev_odyssey/models/odyssey.dart';
+import 'package:dev_odyssey/models/entry_model.dart';
+import 'package:dev_odyssey/models/odyssey_model.dart';
+import 'package:dev_odyssey/widgets/entry_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:dev_odyssey/services/firestore_database.dart';
-import 'package:dev_odyssey/widgets/BottomNavBar.dart';
+import 'package:provider/provider.dart';
 
 class OdysseyScreen extends StatelessWidget {
   const OdysseyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
-
+    final odyssey = Provider.of<OdysseyModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Welcome to your odysseys"),
+        title: const Text("Welcome to your odyssey"),
+        backgroundColor: Colors.lightBlue,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const AlertDialog(
-                    title: Text('Create Odyssey'),
-                    content: CreateOdysseyWidget(),
-                  ),
-                );
-              },
-              child: const Text('Start a new Odyssey'),
-            ),
-          ),
-          Expanded(
-            child: StreamBuilder<List<OdysseyModel>>(
-              stream: firestoreDatabase.odysseysStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final odysseys = snapshot.data;
-                  if (odysseys!.isEmpty) {
-                    print("No odysseys found");
-                  } else {
-                    print("# of odysseys: ${odysseys.length}");
-                  }
-                  return ListView.builder(
-                    itemCount: odysseys.length,
-                    itemBuilder: (context, index) {
-                      final odyssey = odysseys[index];
-                      return ListTile(
-                        title: Text(odyssey.name),
-                        subtitle: Text(odyssey.details),
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  print('Snapshot error: ${snapshot.error}');
-                  return const Center(
-                      child:
-                          Text('Snapshot has error. Cannot display Odysseys'));
-                }
-                // While data is loading
-                return const Center(child: CircularProgressIndicator());
-              },
-            ),
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(odyssey.name),
+            Text(odyssey.details),
+            const Expanded(
+              child: EntryList(),
+            )
+          ],
+        ),
       ),
-      bottomNavigationBar: const BottomNavBar(
-        left: "people",
-        middle: "Fix me",
-        right: "resources",
-        leftIcon: FontAwesomeIcons.portrait,
-        middleIcon: FontAwesomeIcons.mountain,
-        rightIcon: FontAwesomeIcons.book,
+      bottomNavigationBar: Provider<OdysseyModel>(
+        create: (context) => odyssey,
+        child: const EntryNavBar(
+          left: "people",
+          middle: "Entry",
+          right: "resources",
+          leftIcon: FontAwesomeIcons.portrait,
+          middleIcon: FontAwesomeIcons.plus,
+          rightIcon: FontAwesomeIcons.book,
+        ),
       ),
     );
   }
 }
 
-class CreateOdysseyWidget extends StatefulWidget {
-  const CreateOdysseyWidget({super.key});
-
-  @override
-  _CreateOdysseyWidgetState createState() => _CreateOdysseyWidgetState();
-}
-
-class _CreateOdysseyWidgetState extends State<CreateOdysseyWidget> {
-  late TextEditingController _nameTextController = TextEditingController();
-  late TextEditingController _detailsTextController = TextEditingController();
-  OdysseyModel? _odyssey;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _nameTextController.dispose();
-    _detailsTextController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final OdysseyModel? _OdysseyModel =
-        ModalRoute.of(context)?.settings.arguments as OdysseyModel?;
-    if (_OdysseyModel != null) {
-      _odyssey = _OdysseyModel;
-    }
-
-    _nameTextController = TextEditingController(text: _odyssey?.name ?? "");
-    _detailsTextController =
-        TextEditingController(text: _odyssey?.details ?? "");
-  }
-
-  void _createOdyssey() {
-    // Create an instance of the Odyssey model
-    final OdysseyModel newOdyssey = OdysseyModel(
-      id: _odyssey?.id ?? documentIdFromCurrentDate(),
-      name: _nameTextController.text,
-      details: _detailsTextController.text.isNotEmpty
-          ? _detailsTextController.text
-          : "",
-    );
-
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
-
-    // Call the Firestore service to add the new odyssey
-    firestoreDatabase.setOdyssey(newOdyssey);
-
-    // Clear the text fields after creating the odyssey
-    _nameTextController.clear();
-    _detailsTextController.clear();
-
-    // Show a success message or navigate to a different screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Odyssey created successfully')),
-    );
-  }
+class EntryList extends StatelessWidget {
+  const EntryList({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: _nameTextController,
-          decoration: const InputDecoration(labelText: 'Odyssey Name'),
-        ),
-        TextField(
-          controller: _detailsTextController,
-          decoration: const InputDecoration(labelText: 'Odyssey Details'),
-        ),
-        ElevatedButton(
-          onPressed: _createOdyssey,
-          child: const Text('Create Odyssey'),
-        ),
-      ],
+    final firestoreDatabase = Provider.of<FirestoreDatabase>(context);
+    final odyssey = Provider.of<OdysseyModel>(context);
+    return StreamBuilder<OdysseyModel>(
+      stream: firestoreDatabase.odysseyStream(odysseyId: odyssey.id),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final OdysseyModel? odyssey = snapshot.data;
+          final List<EntryModel> entriesList = odyssey!.entries.values.toList();
+          entriesList.sort((a, b) => b.date.compareTo(a.date));
+          return ListView.builder(
+            itemCount: entriesList.length,
+            itemBuilder: (context, index) {
+              final EntryModel entry = entriesList[index];
+              return Card(
+                margin: const EdgeInsets.all(8.0),
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        entry.date,
+                        style: const TextStyle(
+                          fontStyle: FontStyle.italic,
+                          color: Color.fromARGB(255, 205, 163, 11),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        entry.text,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.cyan,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        } else if (snapshot.hasError) {
+          print('Snapshot error: ${snapshot.error}');
+          return const Center(
+              child: Text('Snapshot has error. Cannot display Entry'));
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

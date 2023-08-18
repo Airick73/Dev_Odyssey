@@ -4,6 +4,7 @@ import 'package:dev_odyssey/screens/friends.dart';
 import 'package:dev_odyssey/screens/home.dart';
 import 'package:dev_odyssey/screens/login.dart';
 import 'package:dev_odyssey/screens/odyssey/odyssey.dart';
+import 'package:dev_odyssey/screens/odyssey/odysseys.dart';
 import 'package:dev_odyssey/screens/odyssey/people.dart';
 import 'package:dev_odyssey/screens/odyssey/resources.dart';
 import 'package:dev_odyssey/screens/profile.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const String about = '/about';
   static const String login = '/login';
   static const String explore = '/explore';
+  static const String odysseys = '/odysseys';
   static const String odyssey = '/odyssey';
   static const String profile = '/profile';
   static const String friends = '/friends';
@@ -29,6 +31,7 @@ class Routes {
     about: (BuildContext context) => const AboutScreen(),
     login: (BuildContext context) => const LoginScreen(),
     explore: (BuildContext context) => const ExploreScreen(),
+    odysseys: (BuildContext context) => const OdysseysScreen(),
     odyssey: (BuildContext context) => const OdysseyScreen(),
     profile: (BuildContext context) => const ProfileScreen(),
     friends: (BuildContext context) => const FriendsScreen(),
