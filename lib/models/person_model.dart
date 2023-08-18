@@ -23,4 +23,13 @@ class PersonModel {
       details: details,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'picture': picture,
+      'details': details,
+    };
+  }
 }

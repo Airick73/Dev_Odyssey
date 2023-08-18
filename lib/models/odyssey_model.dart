@@ -1,6 +1,6 @@
-import 'package:dev_odyssey/models/entry.dart';
-import 'package:dev_odyssey/models/person.dart';
-import 'package:dev_odyssey/models/resource.dart';
+import 'package:dev_odyssey/models/entry_model.dart';
+import 'package:dev_odyssey/models/person_model.dart';
+import 'package:dev_odyssey/models/resource_model.dart';
 
 class OdysseyModel {
   String id;
@@ -49,9 +49,9 @@ class OdysseyModel {
       'id': id,
       'name': name,
       'details': details,
-      'people': people,
-      'entries': entries,
-      'resources': resources
+      'people': people.map((key, value) => MapEntry(key, value.toMap())),
+      'entries': entries.map((key, value) => MapEntry(key, value.toMap())),
+      'resources': resources.map((key, value) => MapEntry(key, value.toMap())),
     };
   }
 }
