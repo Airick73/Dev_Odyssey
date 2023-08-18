@@ -8,4 +8,4 @@ class FirestorePath {
   static String odyssey(String uid, String odysseyID) =>
       'users/$uid/odysseys/$odysseyID';
   static String odysseys(String uid) => 'users/$uid/odysseys';
-}
+  }
