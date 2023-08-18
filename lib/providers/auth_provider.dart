@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:dev_odyssey/models/user.dart';
+import 'package:dev_odyssey/models/user_model.dart';
 
 enum Status {
   Uninitialized,
