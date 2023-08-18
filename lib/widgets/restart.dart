@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
 // Define a StatefulWidget. This allows you to create a widget that can change over time.
-class RestartWidget extends StatefulWidget {
+class Restart extends StatefulWidget {
   // The constructor takes a child widget that this widget will render as part of its widget tree.
-  const RestartWidget({super.key, required this.child});
+  const Restart({super.key, required this.child});
 
   final Widget child; // The child widget that this widget will render.
 
   // A static method that can be used to restart the app.
-  // It finds the nearest _RestartWidgetState ancestor from the given BuildContext and calls its restartApp() method.
+  // It finds the nearest _RestartState ancestor from the given BuildContext and calls its restartApp() method.
   static void restartApp(BuildContext context) {
-    context.findAncestorStateOfType<_RestartWidgetState>()!.restartApp();
+    context.findAncestorStateOfType<_RestartState>()!.restartApp();
   }
 
   // Create the mutable state for this widget.
   @override
-  _RestartWidgetState createState() => _RestartWidgetState();
+  _RestartState createState() => _RestartState();
 }
 
-// Define the state object for the RestartWidget. This object is created by the createState() method.
-class _RestartWidgetState extends State<RestartWidget> {
+// Define the state object for the Restart. This object is created by the createState() method.
+class _RestartState extends State<Restart> {
   // A unique key that can be used to force the widget tree to rebuild.
   Key key = UniqueKey();
 
