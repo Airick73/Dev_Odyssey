@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dev_odyssey/models/entry_model.dart';
 import 'package:dev_odyssey/models/odyssey_model.dart';
+import 'package:dev_odyssey/models/user_model.dart';
 import 'package:dev_odyssey/services/firestore_service.dart';
 import 'package:dev_odyssey/services/firestore_path.dart';
 
@@ -33,6 +33,35 @@ class FirestoreDatabase {
     );
   }
 
+  Future<void> deleteOdyssey(String odysseyId) async {
+    await _firestoreService.deleteData(
+      path: FirestorePath.odyssey(uid, odysseyId),
+    );
+  }
+
+  Future<void> deleteEntry(String odysseyId, String entryId) async {
+    await _firestoreService.deleteKeyValuePair(
+        path: FirestorePath.odyssey(uid, odysseyId),
+        field: 'entries',
+        key: entryId);
+  }
+
+  //Method to create/update OdysseyModel
+  Future<void> setUser(UserModel user) async {
+    await _firestoreService.set(
+      path: FirestorePath.user(uid),
+      data: user.toMap(),
+    );
+  }
+
+  //Method to retrieve OdysseyModel object based on the given odysseyId
+  Stream<UserModel> userStream() {
+    return _firestoreService.documentStream(
+      path: FirestorePath.user(uid),
+      builder: (data, documentId) => UserModel.fromMap(data, documentId),
+    );
+  }
+
   //Method to retrieve OdysseyModel object based on the given odysseyId
   Stream<OdysseyModel> odysseyStream({required String odysseyId}) {
     return _firestoreService.documentStream(
@@ -49,31 +78,45 @@ class FirestoreDatabase {
     );
   }
 
-  //Method to mark all OdysseyModel to be complete
-  Future<void> setAllodysseyComplete() async {
-    final batchUpdate = FirebaseFirestore.instance.batch();
-
-    final querySnapshot = await FirebaseFirestore.instance
-        .collection(FirestorePath.odysseys(uid))
-        .get();
-
-    for (DocumentSnapshot ds in querySnapshot.docs) {
-      batchUpdate.update(ds.reference, {'complete': true});
-    }
-    await batchUpdate.commit();
+  Stream<List<OdysseyModel>> allOdysseysStream() {
+    return FirebaseFirestore.instance
+        .collectionGroup('odysseys')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map(
+            (doc) => OdysseyModel.fromMap(
+                doc.data() as Map<String, dynamic>, doc.id),
+          )
+          .toList();
+    });
   }
 
-  Future<void> deleteAllOdysseyWithComplete() async {
-    final batchDelete = FirebaseFirestore.instance.batch();
+  // //Method to mark all OdysseyModel to be complete
+  // Future<void> setAllodysseyComplete() async {
+  //   final batchUpdate = FirebaseFirestore.instance.batch();
 
-    final querySnapshot = await FirebaseFirestore.instance
-        .collection(FirestorePath.odysseys(uid))
-        .where('complete', isEqualTo: true)
-        .get();
+  //   final querySnapshot = await FirebaseFirestore.instance
+  //       .collection(FirestorePath.odysseys(uid))
+  //       .get();
 
-    for (DocumentSnapshot ds in querySnapshot.docs) {
-      batchDelete.delete(ds.reference);
-    }
-    await batchDelete.commit();
-  }
+  //   for (DocumentSnapshot ds in querySnapshot.docs) {
+  //     batchUpdate.update(ds.reference, {'complete': true});
+  //   }
+  //   await batchUpdate.commit();
+  // }
+
+  // Future<void> deleteAllOdysseyWithComplete() async {
+  //   final batchDelete = FirebaseFirestore.instance.batch();
+
+  //   final querySnapshot = await FirebaseFirestore.instance
+  //       .collection(FirestorePath.odysseys(uid))
+  //       .where('complete', isEqualTo: true)
+  //       .get();
+
+  //   for (DocumentSnapshot ds in querySnapshot.docs) {
+  //     batchDelete.delete(ds.reference);
+  //   }
+  //   await batchDelete.commit();
+  // }
 }

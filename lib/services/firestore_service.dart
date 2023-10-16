@@ -16,15 +16,36 @@ class FirestoreService {
     bool merge = false,
   }) async {
     final reference = FirebaseFirestore.instance.doc(path);
-    print('$path: $data');
     await reference.set(data);
   }
 
   // Deletes data from the specified document path
   Future<void> deleteData({required String path}) async {
     final reference = FirebaseFirestore.instance.doc(path);
-    print('delete: $path');
     await reference.delete();
+  }
+
+  Future<void> deleteKeyValuePair(
+      {required String path,
+      required String field,
+      required String key}) async {
+    final odysseyRef = FirebaseFirestore.instance.doc(path);
+
+    final DocumentSnapshot docSnapshot = await odysseyRef.get();
+
+    if (docSnapshot.exists) {
+      final Map<String, dynamic> data =
+          docSnapshot.data() as Map<String, dynamic>;
+      final Map<String, dynamic>? targetMap =
+          data[field] as Map<String, dynamic>?;
+
+      if (targetMap != null && targetMap.containsKey(key)) {
+        // Remove the key-value pair from the map
+        targetMap.remove(key);
+        // Update the document with the modified map
+        await odysseyRef.update({field: targetMap});
+      }
+    }
   }
 
   // Returns a stream of a collection as a list of items

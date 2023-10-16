@@ -16,6 +16,7 @@ class OdysseysScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Welcome to your odysseys"),
+        backgroundColor: const Color.fromARGB(221, 205, 19, 19),
       ),
       body: Column(
         children: [
@@ -31,6 +32,8 @@ class OdysseysScreen extends StatelessWidget {
                   ),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(221, 213, 12, 12)),
               child: const Text('Start a new Odyssey'),
             ),
           ),
@@ -51,14 +54,63 @@ class OdysseysScreen extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => Provider<OdysseyModel>(
                                 create: (context) => odyssey,
-                                child: const OdysseyScreen(),
+                                child: const OdysseyScreen(
+                                  isOwner: true, //FIX ME
+                                ),
                               ),
                             ),
                           );
                         },
-                        child: ListTile(
-                          title: Text(odyssey.name),
-                          subtitle: Text(odyssey.details),
+                        child: Card(
+                          color: Colors.white,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16.0),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  odyssey.name,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  odyssey.details,
+                                  style: const TextStyle(
+                                      color: Colors.black54, fontSize: 16),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit,
+                                          color: Colors.blue),
+                                      onPressed: () {
+                                        // Edit odyssey functionality here
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete,
+                                          color: Colors.red),
+                                      onPressed: () {
+                                        firestoreDatabase
+                                            .deleteOdyssey(odyssey.id);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       );
                     },

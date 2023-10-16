@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dev_odyssey/models/odyssey_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ class _CreateEntryState extends State<CreateEntry> {
 
   @override
   Widget build(BuildContext context) {
-    final odyssey = Provider.of<OdysseyModel>(context);
+    final odyssey = Provider.of<OdysseyModel>(context, listen: true);
     var width = MediaQuery.of(context).size.width,
         height = MediaQuery.of(context).size.height;
     return AlertDialog(
@@ -166,6 +168,16 @@ class _CreateEntryState extends State<CreateEntry> {
       );
       odyssey.entries[entry.id] = entry;
       firestoreDatabase.setOdyssey(odyssey);
+
+      _textController.clear();
+      _dateController.clear();
+      _personNameController.clear();
+      _personPictureController.clear();
+      _personDetailsController.clear();
+      _resourcePictureController.clear();
+      _resourceNoteController.clear();
+      _resourceLinkController.clear();
+
       Navigator.of(context).pop();
     }
   }

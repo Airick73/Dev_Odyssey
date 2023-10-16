@@ -32,8 +32,15 @@ class Routes {
     login: (BuildContext context) => const LoginScreen(),
     explore: (BuildContext context) => const ExploreScreen(),
     odysseys: (BuildContext context) => const OdysseysScreen(),
-    odyssey: (BuildContext context) => const OdysseyScreen(),
-    profile: (BuildContext context) => const ProfileScreen(),
+    odyssey: (BuildContext context) {
+      final bool isOwner = ModalRoute.of(context)!.settings.arguments as bool;
+      return OdysseyScreen(isOwner: isOwner);
+    },
+    profile: (BuildContext context) {
+      final String userId =
+          ModalRoute.of(context)!.settings.arguments as String;
+      return ProfileScreen(userId: userId);
+    },
     friends: (BuildContext context) => const FriendsScreen(),
     resources: (BuildContext context) => const ResourcesScreen(),
     people: (BuildContext context) => const PeopleScreen(),

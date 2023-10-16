@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:dev_odyssey/services/firestore_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dev_odyssey/models/user_model.dart';
@@ -76,6 +77,20 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       final UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+      final User? firebaseUser = result.user;
+
+      // Create a UserModel with additional information
+      final UserModel user = UserModel(
+        uid: firebaseUser!.uid,
+        email: firebaseUser.email,
+        displayName: firebaseUser.displayName,
+        phoneNumber: firebaseUser.phoneNumber,
+        photoUrl: firebaseUser.photoURL,
+        // Add other fields as needed
+      );
+
+      FirestoreDatabase(uid: firebaseUser.uid).setUser(user);
 
       return _userFromFirebase(result.user);
     } catch (e) {

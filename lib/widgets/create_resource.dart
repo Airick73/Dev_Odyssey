@@ -43,7 +43,7 @@ class CreateResource extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'Enter link URL')),
         ElevatedButton(
           onPressed: () {
-            final odyssey = Provider.of<OdysseyModel>(context);
+            final odyssey = Provider.of<OdysseyModel>(context, listen: false);
             final newResource = ResourceModel(
               id: documentIdFromCurrentDate(),
               picture: selectedContentType == 'Picture'

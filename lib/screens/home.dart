@@ -1,7 +1,8 @@
+import 'package:dev_odyssey/models/user_model.dart';
 import 'package:dev_odyssey/providers/auth_provider.dart';
 import 'package:dev_odyssey/routes.dart';
-import 'package:dev_odyssey/widgets/BottomNavBar.dart';
-import 'package:dev_odyssey/widgets/restart_app.dart';
+import 'package:dev_odyssey/widgets/bottom_nav_bar.dart';
+import 'package:dev_odyssey/widgets/restart.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -20,15 +21,34 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.greenAccent,
       ),
       body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              print("${authProvider.status}");
-            },
-            child: const Text("status")),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            StreamBuilder<UserModel>(
+              stream: authProvider.user,
+              builder: (context, snapshot) {
+                return Column(
+                  children: [
+                    Text(snapshot.data?.uid ?? 'Loading...'),
+                    Text(snapshot.data?.email ?? 'Loading...'),
+                    Text(snapshot.data?.displayName ?? 'Loading...'),
+                    Text(snapshot.data?.phoneNumber ?? 'Loading...'),
+                    Text(snapshot.data?.photoUrl ?? 'Loading...'),
+                  ],
+                );
+              },
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  print("${authProvider.status}");
+                },
+                child: const Text("status")),
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNavBar(
           left: "friends",
-          middle: "odyssey",
+          middle: "odysseys",
           right: "explore",
           leftIcon: FontAwesomeIcons.userFriends,
           middleIcon: FontAwesomeIcons.ship,
@@ -40,7 +60,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             authProvider.signOut();
             Navigator.of(context).pushReplacementNamed(Routes.login);
-            RestartWidget.restartApp(context);
+            Restart.restartApp(context);
           },
         ),
       ),
